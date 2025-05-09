@@ -9,6 +9,7 @@ import java.util.List;
 public class CartPage {
     public String productListNameXpath="(//tbody//tr)//td//h4//a";
     public String deleteProductBtnsXpath="//tbody//tr/td//a//i";
+    public String cartIsEmptyTextXpath= "//b[text()='Cart is empty!']";
 
     public void deleteAllProducts(WebDriver driver){
         List<WebElement> deleteAllProductsEl= driver.findElements(By.xpath(deleteProductBtnsXpath));

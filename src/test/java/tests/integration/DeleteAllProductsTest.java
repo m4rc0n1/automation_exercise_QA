@@ -7,6 +7,9 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.cart.CartPage;
@@ -37,7 +40,6 @@ public class DeleteAllProductsTest {
             System.out.println("Can not find Consent button");
         }
     }
-
     @Test
     @Description ("Delete all products from the card")
     public void deleteAllProducts(){
@@ -56,9 +58,12 @@ public class DeleteAllProductsTest {
         driver.findElement(By.xpath(homePage.modalViewCartBtnXpath)).click();
         //8.her bir productu sil
         cartPage.deleteAllProducts(driver);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(cartPage.cartIsEmptyTextXpath)));
+        String actualResult= driver.findElement(By.xpath(cartPage.cartIsEmptyTextXpath)).getText();
+        String expectedResult = "Cart is empty!";
+        Assert.assertEquals(actualResult, expectedResult);
+
 
     }
-
-
-
 }
