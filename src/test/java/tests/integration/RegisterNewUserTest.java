@@ -24,6 +24,7 @@ public class RegisterNewUserTest {
     String emailData="testercourse@gmail.com";
     String passwordData="Test123!";
 
+
     @BeforeMethod
     public void setup(){
         WebDriverManager.chromedriver().setup();
@@ -41,7 +42,6 @@ public class RegisterNewUserTest {
     @Test
     public  void registerNewUser(){
 
-
         //sayta get
         //loginsignup seyfesine kec
         driver.findElement(By.xpath(homePage.signUpLoginBtnXpath)).click();
@@ -50,13 +50,27 @@ public class RegisterNewUserTest {
         //username yaz
 //        driver.findElement(By.xpath(sign));
         //email yaz
-
         //signup duymesine tikla
+
+        // title sec
+        signupLoginPage.getTitleEl(driver,1);
+        // password elave et
+        driver.findElement(By.xpath(signupLoginPage.getLoginSignUpPageElementXpath("input","password"))).sendKeys();
+
+        // first name elave et
+        //last name elaave et
+        //country sec
+        //state sec
+        //zip kodu sec
+        // telefonu sec
+        //create new account yarat
 
 
 
 
     }
+
+
 
 
 }
