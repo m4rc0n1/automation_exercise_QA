@@ -82,10 +82,12 @@ public class SignupLogin {
                 .sendKeys(faker.address().zipCode())
                 .sendKeys(Keys.TAB)
                 .sendKeys(faker.phoneNumber().cellPhone())
+                .sendKeys(Keys.TAB)
+                .sendKeys(Keys.ENTER)
                 .perform();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(getLoginSignUpPageElementXpath("button","create-account"))));
-        driver.findElement(By.xpath(getLoginSignUpPageElementXpath("button","create-account"))).click();
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+//        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(getLoginSignUpPageElementXpath("button","create-account"))));
+//        driver.findElement(By.xpath(getLoginSignUpPageElementXpath("button","create-account"))).click();
         return newUserData;
     }
 }

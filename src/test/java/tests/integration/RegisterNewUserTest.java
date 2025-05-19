@@ -13,23 +13,25 @@ import org.testng.annotations.Test;
 import pages.cart.CartPage;
 import pages.home.HomePage;
 import pages.signupLogin.SignupLogin;
+import utils.ConfigReader;
 
 import java.time.Duration;
 import java.util.HashMap;
 
 public class RegisterNewUserTest {
     WebDriver driver;
-    String url = "https://automationexercise.com/";
+    ConfigReader configReader = new ConfigReader();
+
     HomePage homePage = new HomePage();
     SignupLogin signupLoginPage = new SignupLogin();
 
     @BeforeMethod
     public void setup(){
-        WebDriverManager.chromedriver().setup();
+        if(configReader.getProperty("browser").equals("chrome")){WebDriverManager.chromedriver().setup();}
         driver= new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        driver.get(url);
+        driver.get(configReader.getProperty("url"));
         try{
             driver.findElement(By.xpath("//button[@aria-label='Consent']")).click();
         }catch(NoSuchElementException err){
@@ -40,10 +42,9 @@ public class RegisterNewUserTest {
     public  void registerNewUser(){
         driver.findElement(By.xpath(homePage.signUpLoginBtnXpath)).click();
         HashMap<String,String> newUser= signupLoginPage.registerNewUser(driver);
-        signupLoginPage.getTitleEl(driver,1);
-        driver.findElement(By.xpath(signupLoginPage.getLoginSignUpPageElementXpath("input","password"))).sendKeys();
+        //driver.findElement(By.xpath(signupLoginPage.getLoginSignUpPageElementXpath("input","password"))).sendKeys();
         String actualAccountCreatedText = driver.findElement(By.xpath(signupLoginPage.accountCreatedTextXpath)).getText();
-        String expectedAccountCreatedText = "Account Created!";
+        String expectedAccountCreatedText = "ACCOUNT CREATED!";
         Assert.assertEquals(actualAccountCreatedText, expectedAccountCreatedText);
     }
     @AfterMethod
