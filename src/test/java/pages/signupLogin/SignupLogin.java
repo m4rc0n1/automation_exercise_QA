@@ -14,6 +14,7 @@ import java.time.Duration;
 import java.util.HashMap;
 
 public class SignupLogin {
+    public String accountCreatedTextXpath= "//b[text()='Account Created!']";
     public WebElement getTitleEl(WebDriver driver, int titleNum) {
       return driver.findElement(By.xpath("//input[@id='id_gender" +titleNum+"']"));
     }

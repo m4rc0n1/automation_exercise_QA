@@ -6,6 +6,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.cart.CartPage;
@@ -19,11 +21,7 @@ public class RegisterNewUserTest {
     WebDriver driver;
     String url = "https://automationexercise.com/";
     HomePage homePage = new HomePage();
-    CartPage cartPage = new CartPage();
     SignupLogin signupLoginPage = new SignupLogin();
-    String emailData="testercourse@gmail.com";
-    String passwordData="Test123!";
-
 
     @BeforeMethod
     public void setup(){
@@ -38,39 +36,18 @@ public class RegisterNewUserTest {
             System.out.println("Can not find Consent button");
         }
     }
-
     @Test
     public  void registerNewUser(){
-
-        //sayta get
-        //loginsignup seyfesine kec
         driver.findElement(By.xpath(homePage.signUpLoginBtnXpath)).click();
         HashMap<String,String> newUser= signupLoginPage.registerNewUser(driver);
-        System.out.println(newUser);
-        //username yaz
-//        driver.findElement(By.xpath(sign));
-        //email yaz
-        //signup duymesine tikla
-
-        // title sec
         signupLoginPage.getTitleEl(driver,1);
-        // password elave et
         driver.findElement(By.xpath(signupLoginPage.getLoginSignUpPageElementXpath("input","password"))).sendKeys();
-
-        // first name elave et
-        //last name elaave et
-        //country sec
-        //state sec
-        //zip kodu sec
-        // telefonu sec
-        //create new account yarat
-
-
-
-
+        String actualAccountCreatedText = driver.findElement(By.xpath(signupLoginPage.accountCreatedTextXpath)).getText();
+        String expectedAccountCreatedText = "Account Created!";
+        Assert.assertEquals(actualAccountCreatedText, expectedAccountCreatedText);
     }
-
-
-
-
+    @AfterMethod
+    public void tearDown(){
+        driver.close();
+    }
 }
