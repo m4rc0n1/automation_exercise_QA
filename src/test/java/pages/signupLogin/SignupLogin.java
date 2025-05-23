@@ -6,15 +6,12 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 import java.util.HashMap;
 
 public class SignupLogin {
     public String accountCreatedTextXpath= "//b[text()='Account Created!']";
+    public String incorrectPasswordTextXpath = "//p[text()='Your email or password is incorrect!']";
     public WebElement getTitleEl(WebDriver driver, int titleNum) {
       return driver.findElement(By.xpath("//input[@id='id_gender" +titleNum+"']"));
     }
@@ -23,12 +20,9 @@ public class SignupLogin {
         return "//"+elementType+"[@data-qa='"+elementName+ "']";
     }
     public void login(String email, String password, WebDriver driver) {
-        //email yaz
         driver.findElement(By.xpath(getLoginSignUpPageElementXpath("input","login-email"))).sendKeys(email);
-        //password yaz
         driver.findElement(By.xpath(getLoginSignUpPageElementXpath("input","login-password"))).sendKeys(password);
-        // login duymesine bas
-       driver.findElement(By.xpath(getLoginSignUpPageElementXpath("button","login-button"))).click();
+        driver.findElement(By.xpath(getLoginSignUpPageElementXpath("button","login-button"))).click();
     }
 
     public HashMap<String,String> registerNewUser(WebDriver driver){
@@ -46,9 +40,7 @@ public class SignupLogin {
         newUserData.put("username",username);
         newUserData.put("email",emailAddress);
         newUserData.put("password",password);
-        // title sec
         getTitleEl(driver,1).click();
-        // password elave et
         driver.findElement(By.xpath(getLoginSignUpPageElementXpath("input","password")))
                 .sendKeys(password);
         WebElement dayDropDownEl = driver.findElement(By.xpath(getLoginSignUpPageElementXpath("select","days")));
@@ -85,9 +77,6 @@ public class SignupLogin {
                 .sendKeys(Keys.TAB)
                 .sendKeys(Keys.ENTER)
                 .perform();
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-//        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(getLoginSignUpPageElementXpath("button","create-account"))));
-//        driver.findElement(By.xpath(getLoginSignUpPageElementXpath("button","create-account"))).click();
         return newUserData;
     }
 }

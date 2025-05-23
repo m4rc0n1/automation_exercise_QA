@@ -24,8 +24,8 @@ public class LoginTest {
 
     @DataProvider(name="LoginData")
     public Object[][] getData(){
-        return new Object[][] {{"veli@gmail.com","2234#"},{configReader.getProperty("email")
-                ,configReader.getProperty("password")}};
+        return new Object[][] {{"veli@gmail.com","2234#", false},{configReader.getProperty("email")
+                ,configReader.getProperty("password"), true}};
     }
 
     @BeforeMethod
@@ -42,17 +42,15 @@ public class LoginTest {
         }
     }
     @Test (dataProvider = "LoginData")
-    public void loginUser(String email,String password){
-        //seyfeye get
-        //sign in sec
+    public void loginUser(String email,String password, boolean isPositive){
         driver.findElement(By.xpath(homePage.signUpLoginBtnXpath)).click();
-        //login ol
         signupLogin.login(email,password,driver);
-
-        boolean isLogoutDisplayed = driver.findElement(By.xpath(homePage.logoutBtnXpath)).isDisplayed();
-
-        Assert.assertTrue(isLogoutDisplayed);
+        if(isPositive){
+            boolean isLogoutDisplayed = driver.findElement(By.xpath(homePage.logoutBtnXpath)).isDisplayed();
+            Assert.assertTrue(isLogoutDisplayed);
+        }else {
+            boolean isIncorrectPasswordTextDisplayed = driver.findElement(By.xpath(signupLogin.incorrectPasswordTextXpath)).isDisplayed();
+            Assert.assertTrue(isIncorrectPasswordTextDisplayed);
+        }
     }
-
-
 }
