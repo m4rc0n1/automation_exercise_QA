@@ -8,8 +8,13 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class TestListener implements ITestListener {
     private static WebDriver driver;
@@ -18,8 +23,12 @@ public class TestListener implements ITestListener {
     }
     public void takeScreenShot (String testName){
         File screenShot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        LocalDateTime dateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss");
+        String now = dateTime.format(formatter);
+        System.out.println(now);
         try{
-            FileUtils.copyFile(screenShot, new File("screenshots/"+testName+ ".png"));
+            FileUtils.copyFile(screenShot, new File("screenshots/"+testName+ now +".png"));
             System.out.println("Successfully saved screenshot for test: "+testName);
         }catch (IOException e){
             e.printStackTrace();

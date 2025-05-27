@@ -6,18 +6,17 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Listeners;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import pages.home.HomePage;
 import pages.signupLogin.SignupLogin;
 import utils.ConfigReader;
+import utils.CustomReportListener;
 import utils.TestListener;
 
 import java.time.Duration;
 
 @Listeners(TestListener.class)
+//@Listeners(CustomReportListener.class)
 public class LoginTest {
 
     WebDriver driver;
@@ -60,5 +59,10 @@ public class LoginTest {
     @Test
     public void testFailed(){
         Assert.assertTrue(false);
+    }
+
+    @AfterMethod
+    public  void tearDown(){
+        driver.quit();
     }
 }
