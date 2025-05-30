@@ -16,7 +16,7 @@ public class CartPage {
 
     public WebElement getTotalAmount(WebDriver driver){
      List<WebElement> totalAmounts = driver.findElements(By.xpath("//p[@class='cart_total_price']"));
-     return totalAmounts.getLast();
+     return totalAmounts.get(totalAmounts.size()-1);
     }
 
     public void deleteAllProducts(WebDriver driver){
