@@ -29,8 +29,7 @@ public class PurchaseProductTest {
     SignupLogin signupLoginPage = new SignupLogin();
     CartPage cartPage = new CartPage();
     Faker faker= new Faker();
-    String downloadPath = System.getProperty("user.dir")+ "\\downloads\\";
-
+    String downloadPath = System.getProperty("user.home") + File.separator + "Downloads" + File.separator;
 
     @BeforeMethod
     public void setup(){
@@ -87,7 +86,6 @@ public class PurchaseProductTest {
         }
         System.out.println(firstLineText);
     }
-
 }
 
 

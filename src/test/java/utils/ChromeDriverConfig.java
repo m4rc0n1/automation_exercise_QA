@@ -16,15 +16,15 @@ public class ChromeDriverConfig {
         prefs.put("profile.default_content_settings.popups", 0);
         prefs.put("download.prompt_for_download", false);
         prefs.put("directory_upgrade", true);
-
+        prefs.put("safebrowsing.enabled", true);
         ChromeOptions options = new ChromeOptions();
-        options.setExperimentalOption("prefs", prefs);
-
         WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver(options);
+        ChromeDriver driver = new ChromeDriver(options);
+        options.setExperimentalOption("prefs", prefs);
+        options.addArguments("--safebrowsing-disable-download-protection");
+        options.addArguments("safebrowsing-disable-extension-blacklist");
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
-
         return driver;
     }
 }
