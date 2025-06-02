@@ -11,6 +11,7 @@ import pages.home.HomePage;
 import pages.signupLogin.SignupLogin;
 import utils.ConfigReader;
 import utils.CustomReportListener;
+import utils.RetryAnalyzer;
 import utils.TestListener;
 
 import java.time.Duration;
@@ -56,7 +57,7 @@ public class LoginTest {
             Assert.assertTrue(isIncorrectPasswordTextDisplayed);
         }
     }
-    @Test
+    @Test(retryAnalyzer = RetryAnalyzer.class)
     public void testFailed(){
         Assert.assertTrue(false);
     }
