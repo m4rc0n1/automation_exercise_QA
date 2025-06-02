@@ -28,6 +28,8 @@ public class SignupLogin {
     public HashMap<String,String> registerNewUser(WebDriver driver){
         Faker faker = new Faker();
         String username = faker.name().username();
+        String firstName = faker.name().firstName();
+        String lastName = faker.name().lastName();
         String emailAddress=faker.internet().emailAddress();
         String password = faker.internet().password();
         driver.findElement(By.xpath(getLoginSignUpPageElementXpath("input","signup-name")))
@@ -38,6 +40,8 @@ public class SignupLogin {
                 .click();
         HashMap<String,String> newUserData = new HashMap<>();
         newUserData.put("username",username);
+        newUserData.put("firstName", firstName);
+        newUserData.put("lastName", lastName);
         newUserData.put("email",emailAddress);
         newUserData.put("password",password);
         getTitleEl(driver,1).click();
@@ -56,9 +60,9 @@ public class SignupLogin {
         yearSelect.selectByIndex(6);
 
         driver.findElement(By.xpath(getLoginSignUpPageElementXpath("input", "first_name")))
-                .sendKeys(faker.name().firstName());
+                .sendKeys(firstName);
         driver.findElement(By.xpath(getLoginSignUpPageElementXpath("input", "last_name")))
-                .sendKeys(faker.name().lastName());
+                .sendKeys(lastName);
         driver.findElement(By.xpath(getLoginSignUpPageElementXpath("input", "address")))
                 .sendKeys(faker.address().fullAddress());
         WebElement countryDropDownEl = driver.findElement(By.xpath(getLoginSignUpPageElementXpath("select","country")));

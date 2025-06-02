@@ -5,6 +5,8 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.cart.CartPage;
@@ -84,7 +86,16 @@ public class PurchaseProductTest {
             System.out.println("Can not read file: invoice.txt");
             err.printStackTrace();
         }
-        System.out.println(firstLineText);
+        String expectedResult = "Hi "+ newUser.get("firstName")+ " " + newUser.get("lastName")+", Your total purchase amount is "+ amount+". Thank you";
+        Assert.assertEquals(firstLineText, expectedResult);
+    }
+
+    @AfterMethod
+    public void tearDown(){
+        driver.quit();
+        File downloadDir = new File(System.getProperty("user.home") + "/Downloads");
+        File invoiceFile = new File(downloadDir, "invoice.txt");
+        if(invoiceFile.exists()) invoiceFile.delete();
     }
 }
 
