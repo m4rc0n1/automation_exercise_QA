@@ -6,15 +6,17 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import pages.home.HomePage;
 import pages.signupLogin.SignupLogin;
 import utils.ConfigReader;
+import utils.CustomReportListener;
+import utils.TestListener;
 
 import java.time.Duration;
 
+@Listeners(TestListener.class)
+//@Listeners(CustomReportListener.class)
 public class LoginTest {
 
     WebDriver driver;
@@ -32,6 +34,7 @@ public class LoginTest {
     public void setup(){
         WebDriverManager.chromedriver().setup();
         driver= new ChromeDriver();
+        TestListener.setDriver(driver);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         driver.get(configReader.getProperty("url"));
@@ -52,5 +55,14 @@ public class LoginTest {
             boolean isIncorrectPasswordTextDisplayed = driver.findElement(By.xpath(signupLogin.incorrectPasswordTextXpath)).isDisplayed();
             Assert.assertTrue(isIncorrectPasswordTextDisplayed);
         }
+    }
+    @Test
+    public void testFailed(){
+        Assert.assertTrue(false);
+    }
+
+    @AfterMethod
+    public  void tearDown(){
+        driver.quit();
     }
 }

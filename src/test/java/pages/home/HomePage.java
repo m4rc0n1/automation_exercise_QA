@@ -15,6 +15,7 @@ public class HomePage {
     public String modalViewCartBtnXpath="//u[text()='View Cart']";
     public String modalContinueBtnXpath= "//button[text()='Continue Shopping']";
     public String logoutBtnXpath = "//a[@href='/logout']";
+    public  String homePageBtnXpath = "//a[text()=' Home']";
     public String addProductdToCart(WebDriver driver,int productId){
         Actions actions=new Actions(driver);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
