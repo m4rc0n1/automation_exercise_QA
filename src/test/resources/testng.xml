@@ -1,0 +1,26 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<!---->
+<suite name="AutomationExercises">
+    <listeners>
+        <listener class-name="utils.RetryListener"/>
+        <listener class-name="utils.TestListener"/>
+    </listeners>
+    <test name="SanityAndRegression">
+        <groups>
+            <run>
+                <include name="regression"/>
+                <include name="sanity"/>
+             <exclude name="skipped"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="tests.e2e.PurchaseProductTest"/>
+            <class name="tests.integration.LoginTest"/>
+            <class name="tests.integration.AddProductToCartTest"/>
+            <class name="tests.integration.DeleteAllProductsTest"/>
+            <class name="tests.integration.RegisterNewUserTest"/>
+            <class name="tests.sanity.SanityTest"/>
+            <class name="utils.setup.BaseTest"/>
+        </classes>
+    </test>
+</suite>
