@@ -1,21 +1,11 @@
 package tests.integration;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import pages.home.HomePage;
-import pages.signupLogin.SignupLogin;
-import utils.ConfigReader;
-import utils.CustomReportListener;
 import utils.RetryAnalyzer;
 import utils.TestListener;
 import utils.setup.BaseTest;
-
-import java.time.Duration;
 
 @Listeners(TestListener.class)
 //@Listeners(CustomReportListener.class)
