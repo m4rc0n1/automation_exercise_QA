@@ -15,32 +15,12 @@ import org.testng.annotations.Test;
 import pages.cart.CartPage;
 import pages.home.HomePage;
 import pages.signupLogin.SignupLogin;
+import utils.setup.BaseTest;
 
 import java.time.Duration;
 
-public class DeleteAllProductsTest {
-    WebDriver driver;
-    String url = "https://automationexercise.com/";
-    HomePage homePage = new HomePage();
-    CartPage cartPage = new CartPage();
-    SignupLogin signupLoginPage = new SignupLogin();
-    String emailData="testercourse@gmail.com";
-    String passwordData="Test123!";
-
-    @BeforeMethod
-    public void setup(){
-        WebDriverManager.chromedriver().setup();
-        driver= new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        driver.get(url);
-        try{
-            driver.findElement(By.xpath("//button[@aria-label='Consent']")).click();
-        }catch(NoSuchElementException err){
-            System.out.println("Can not find Consent button");
-        }
-    }
-    @Test
+public class DeleteAllProductsTest  extends BaseTest {
+    @Test (groups = {"regression"})
     @Description ("Delete all products from the card")
     public void deleteAllProducts(){
         //1 sayti ac, 2. concenti qebul ele
@@ -63,7 +43,5 @@ public class DeleteAllProductsTest {
         String actualResult= driver.findElement(By.xpath(cartPage.cartIsEmptyTextXpath)).getText();
         String expectedResult = "Cart is empty!";
         Assert.assertEquals(actualResult, expectedResult);
-
-
     }
 }

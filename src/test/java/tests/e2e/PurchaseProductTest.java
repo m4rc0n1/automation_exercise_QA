@@ -15,6 +15,7 @@ import pages.signupLogin.SignupLogin;
 import utils.ChromeDriverConfig;
 import utils.ConfigReader;
 import utils.WaitFileReader;
+import utils.setup.BaseTest;
 
 import javax.swing.*;
 import java.io.BufferedReader;
@@ -24,32 +25,8 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.HashMap;
 
-public class PurchaseProductTest {
-    WebDriver driver;
-    ConfigReader configReader = new ConfigReader();
-    HomePage homePage = new HomePage();
-    SignupLogin signupLoginPage = new SignupLogin();
-    CartPage cartPage = new CartPage();
-    Faker faker= new Faker();
-    String downloadPath = System.getProperty("user.home") + File.separator + "Downloads" + File.separator;
-
-    @BeforeMethod
-    public void setup(){
-        if(configReader.getProperty("browser").equals("chrome")){
-           driver= ChromeDriverConfig.getConfiguratedChromeDriver(downloadPath);
-        }
-
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        driver.get(configReader.getProperty("url"));
-        try{
-            driver.findElement(By.xpath("//button[@aria-label='Consent']")).click();
-        }catch(NoSuchElementException err){
-            System.out.println("Can not find Consent button");
-        }
-    }
-
-    @Test
+public class PurchaseProductTest  extends BaseTest {
+    @Test(groups = {"regression"})
     public void purchaseProduct() {
         Actions actions= new Actions(driver);
         String firstLineText = null;
@@ -91,6 +68,7 @@ public class PurchaseProductTest {
     }
 
     @AfterMethod
+    @Override
     public void tearDown(){
         driver.quit();
         File downloadDir = new File(System.getProperty("user.home") + "/Downloads");

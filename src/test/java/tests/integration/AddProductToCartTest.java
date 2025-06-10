@@ -12,35 +12,14 @@ import org.testng.annotations.Test;
 import pages.cart.CartPage;
 import pages.home.HomePage;
 import pages.signupLogin.SignupLogin;
+import utils.setup.BaseTest;
 
 import java.time.Duration;
 import java.util.List;
 
-public class AddProductToCartTest {
-    WebDriver driver;
-    String url = "https://automationexercise.com/";
-    HomePage homePage = new HomePage();
-    CartPage cartPage = new CartPage();
-    SignupLogin signupLoginPage = new SignupLogin();
-    String emailData="testercourse@gmail.com";
-    String passwordData="Test123!";
+public class AddProductToCartTest extends BaseTest {
 
-    @BeforeMethod
-    public void setup(){
-        WebDriverManager.chromedriver().setup();
-        driver= new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        driver.get(url);
-        try{
-            driver.findElement(By.xpath("//button[@aria-label='Consent']")).click();
-        }catch(NoSuchElementException err){
-            System.out.println("Can not find Consent button");
-        }
-    }
-
-
-    @Test
+    @Test(groups = {"regression"})
     public void addProductToCart(){
         WebElement signUpLoginBtnEl = driver.findElement(By.xpath(homePage.signUpLoginBtnXpath));
         Assert.assertTrue(signUpLoginBtnEl.isDisplayed());
@@ -57,7 +36,7 @@ public class AddProductToCartTest {
         }
     }
 
-    @Test
+    @Test (groups = {"regression"})
     @Description("Add product to  cart with user.")
     public void addProductToCartWithUser() {
         // 2. signup/login sec
@@ -79,11 +58,5 @@ public class AddProductToCartTest {
                 Assert.assertTrue(true);
             }
         }
-    }
-
-
-    @AfterMethod
-    public void tearDown(){
-        driver.close();
     }
 }
