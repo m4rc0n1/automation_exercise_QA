@@ -13,6 +13,7 @@ public class GithubTest {
     Gson gson = new Gson();
     String PTA = configReader.getProperty("PTA");
     String ApiUrl = configReader.getProperty("ApiUrl");
+    String githubUsername = configReader.getProperty("GithubUsername");
 
     @Test
     public void createNewRepo() {
@@ -33,12 +34,13 @@ public class GithubTest {
     }
 
     @Test(priority = 2, dependsOnMethods = "updateRepo")
-    public void deleteRepo() {
+    public void deleteRepo() throws InterruptedException {
+        Thread.sleep(3000);
         RestAssured.baseURI = ApiUrl;
         RestAssured
                 .given().auth().oauth2(PTA)
                 .when()
-                .delete("/repos/Gizgayit/testRepo2")
+                .delete("/repos/"+githubUsername+"/testRepo2")
                 .then().statusCode(204);
     }
 
@@ -51,7 +53,7 @@ public class GithubTest {
                 .given().auth().oauth2(PTA).contentType(ContentType.JSON)
                 .body(jsonPayload)
                 .when()
-                .patch("/repos/Gizgayit/testRepo1")
+                .patch("/repos/"+githubUsername+"/testRepo1")
                 .then().statusCode(200)
                 .body("name", equalTo("testRepo2"))
                 .body("description", equalTo("testRepo2Description"))
