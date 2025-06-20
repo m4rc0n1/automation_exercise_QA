@@ -17,23 +17,8 @@ public class NegativeGithubTest {
     String ApiUrl = configReader.getProperty("ApiUrl");
     String githubUsername = configReader.getProperty("GithubUsername");
 
-
-//    @Test
-//    public void deleteNegativeTest() throws Exception{
-//        RestAssured.baseURI = ApiUrl;
-//        RestAssured
-//                .given().auth().oauth2("invalid_tocken").contentType(ContentType.JSON)
-//                .when()
-//                .delete("/repos/"+githubUsername+"/testRepo3")
-//                .then().statusCode(401)
-//                .body("name", Matchers.equalTo("testRepo3"))
-//                .body("description", Matchers.equalTo("testRepo3Description"))
-//                .body("private", Matchers.equalTo(false))
-//                .body("message", Matchers.equalTo("Bad credential"));
-//    }
-
     @Test
-    public void deleteNotExistingNegative() {
+    public void deleteNotExisting() {
         RestAssured.baseURI = ApiUrl;
         RestAssured
                 .given().auth().oauth2("invalid_token").contentType(ContentType.JSON)
