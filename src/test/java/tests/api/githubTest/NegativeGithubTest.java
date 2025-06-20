@@ -33,7 +33,7 @@ public class NegativeGithubTest {
 //    }
 
     @Test
-    public void deleteNegativeTest() {
+    public void deleteNotExistingNegative() {
         RestAssured.baseURI = ApiUrl;
         RestAssured
                 .given().auth().oauth2("invalid_token").contentType(ContentType.JSON)
