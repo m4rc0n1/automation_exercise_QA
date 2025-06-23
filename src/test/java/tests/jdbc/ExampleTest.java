@@ -1,6 +1,7 @@
 package tests.jdbc;
 
 import com.github.javafaker.Faker;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import utils.ConfigReader;
@@ -36,7 +37,6 @@ public class ExampleTest {
     }
     @Test
     public  void  insertDataPreparedStatement(){
-
         Faker faker = new Faker();
         SoftAssert softAssert = new SoftAssert();
         String insertDataQuery = "INSERT INTO users (name, email, age) VALUES (?,?,?)";
@@ -51,6 +51,23 @@ public class ExampleTest {
             preparedStatement.setString(1,name);
             preparedStatement.setString(2,email);
             preparedStatement.setString(3,age);
+            int rowsInserted = preparedStatement.executeUpdate();
+            Assert.assertEquals(rowsInserted, 1, "Not inserted");
+            PreparedStatement selectStatement = connection.prepareStatement(selectQuery);
+            selectStatement.setString(1,email);
+            ResultSet resultSet = selectStatement.executeQuery();
+            Assert.assertTrue(resultSet.next());
+            String retrievedName = resultSet.getString("name");
+            String retrievedEmail = resultSet.getString("email");
+            String retrievedAge = resultSet.getString("age");
+            softAssert.assertEquals(retrievedName, name, "Names should match");
+            softAssert.assertEquals(retrievedEmail + "t", email, "Emails should match");
+            softAssert.assertEquals(retrievedAge, age, "Ages should match");
+            softAssert.assertAll();
+            preparedStatement.close();
+            selectStatement.close();
+            connection.close();
+
         }catch (SQLException err){
             System.out.println("Error creating table:"+ err.getMessage());
         }
