@@ -35,4 +35,24 @@
     <class name="tests.integration.LoginTest"/>
 </classes>
 </test>
+    <test name="githubApiPositive">
+        <classes>
+            <class name="tests.api.githubTest.GithubTest"/>
+        </classes>
+    </test>
+    <test name="githubApiNegative">
+        <classes>
+            <class name="tests.api.githubTest.NegativeGithubTest"/>
+        </classes>
+    </test>
+    <test name="jdbc">
+        <classes>
+            <class name="tests.jdbc.ExampleTest"/>
+        </classes>
+    </test>
 </suite>
+
+
+
+
+
